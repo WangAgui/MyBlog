@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C/C++,Memory Management,">
+  <meta name="keywords" content="C/C++,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
-<meta name="keywords" content="C&#x2F;C++,Memory Management">
+<meta name="description" content="gdb使用笔记若需使用gdb，那么gcc编译时一定要加-g选项，这样编译出来就有调试信息了。 一，段出错调试（借助core）core文件core文件是类unix生成的内存出错镜像文件。默认是不生成的。需要在.bashrc（在宿主目录中）文件中添加   ulimit -c unlimited where指令能看，在几行出了问题。 listz指令列出出错行的上下文。默认一次十行。 quit指令退出gd">
+<meta name="keywords" content="C&#x2F;C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c++ size_t">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/size_t/index.html">
+<meta property="og:title" content="gdb使用">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/gdb使用/index.html">
 <meta property="og:site_name" content="王阿贵的技术小窝！">
-<meta property="og:description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
+<meta property="og:description" content="gdb使用笔记若需使用gdb，那么gcc编译时一定要加-g选项，这样编译出来就有调试信息了。 一，段出错调试（借助core）core文件core文件是类unix生成的内存出错镜像文件。默认是不生成的。需要在.bashrc（在宿主目录中）文件中添加   ulimit -c unlimited where指令能看，在几行出了问题。 listz指令列出出错行的上下文。默认一次十行。 quit指令退出gd">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T07:31:42.971Z">
+<meta property="og:updated_time" content="2019-05-16T11:46:52.718Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c++ size_t">
-<meta name="twitter:description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
+<meta name="twitter:title" content="gdb使用">
+<meta name="twitter:description" content="gdb使用笔记若需使用gdb，那么gcc编译时一定要加-g选项，这样编译出来就有调试信息了。 一，段出错调试（借助core）core文件core文件是类unix生成的内存出错镜像文件。默认是不生成的。需要在.bashrc（在宿主目录中）文件中添加   ulimit -c unlimited where指令能看，在几行出了问题。 listz指令列出出错行的上下文。默认一次十行。 quit指令退出gd">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/size_t/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/gdb使用/">
 
 
 
 
 
-  <title>c++ size_t | 王阿贵的技术小窝！</title>
+  <title>gdb使用 | 王阿贵的技术小窝！</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/size_t/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/gdb使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang Agui">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c++ size_t</h1>
+          <h1 class="post-title" itemprop="name headline">gdb使用</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:46:05+08:00">
+                2019-05-16
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
+                  <a href="/categories/调试/" itemprop="url" rel="index">
+                    <span itemprop="name">调试</span>
                   </a>
                 </span>
 
@@ -342,14 +342,23 @@
       
 
       
-        <h1 id="size-t"><a href="#size-t" class="headerlink" title="size_t"></a>size_t</h1><h2 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h2><p>在c++中，设计size_t是为了适应多个平台</p>
-<h2 id="size-t占用真实的内存空间"><a href="#size-t占用真实的内存空间" class="headerlink" title="size_t占用真实的内存空间"></a>size_t占用真实的内存空间</h2><p>取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。</p>
-<h2 id="size-t的作用"><a href="#size-t的作用" class="headerlink" title="size_t的作用"></a>size_t的作用</h2><p>使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。</p>
-<p>在标准C库中的许多函数使用的参数或者返回值都是表示的用字节表示的对象大小，比如说malloc(n) 函数的参数n指明了需要申请的空间大小，还有memcpy(s1, s2, n)的最后一个参数，表明需要复制的内存大小，strlen(s)函数的返回值表明了以’\0’结尾的字符串的长度（不包括’\0’），其返回值并不是该字符串的实际长度，因为要去掉’\0’。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void *malloc(size_t n);</span><br><span class="line"></span><br><span class="line">void *memcpy(void *s1, void const *s2, size_t n);</span><br><span class="line"></span><br><span class="line">size_t strlen(char const *s);</span><br></pre></td></tr></table></figure>
-<p>size_t还经常出现在C++标准库中，此外，C++库中经常会使用一个相似的类型size_type，用的可能比size_t还要多。<br>　　据我所知，大部分的C和C++程序员害怕这些库使用size_t，因为他们不知道size_t代表什么或者为什么这些库需要使用它，归根结底，原因在于他们什么时候什么地方需要用到它。</p>
-<p>size_t类型是一个类型定义，通常将一些无符号的整形定义为size_t，比如说unsigned int或者unsigned long，甚至unsigned long long。每一个标准C实现应该选择足够大的无符号整形来代表该平台上最大可能出现的对象大小。</p>
-<p><strong>适当地使用size_t还会使你的代码变得如同自带文档。当你看到一个对象声明为size_t类型，你马上就知道它代表字节大小或数组索引，而不是错误代码或者是一个普通的算术值。</strong></p>
+        <h1 id="gdb使用笔记"><a href="#gdb使用笔记" class="headerlink" title="gdb使用笔记"></a>gdb使用笔记</h1><p>若需使用gdb，那么gcc<strong>编译</strong>时一定要加-g选项，这样编译出来就有调试信息了。</p>
+<h2 id="一，段出错调试（借助core）"><a href="#一，段出错调试（借助core）" class="headerlink" title="一，段出错调试（借助core）"></a>一，段出错调试（借助core）</h2><h3 id="core文件"><a href="#core文件" class="headerlink" title="core文件"></a>core文件</h3><p>core文件是类unix生成的内存出错镜像文件。默认是不生成的。<strong>需要在.bashrc（在宿主目录中）文件中添加   ulimit -c unlimited</strong></p>
+<h3 id="where指令"><a href="#where指令" class="headerlink" title="where指令"></a>where指令</h3><p>能看，在几行出了问题。</p>
+<h3 id="listz指令"><a href="#listz指令" class="headerlink" title="listz指令"></a>listz指令</h3><p>列出出错行的上下文。默认一次十行。</p>
+<h3 id="quit指令"><a href="#quit指令" class="headerlink" title="quit指令"></a>quit指令</h3><p>退出gdb调试</p>
+<h2 id="二，其它情况调试"><a href="#二，其它情况调试" class="headerlink" title="二，其它情况调试"></a>二，其它情况调试</h2><h3 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h3><ul>
+<li>break linenum</li>
+<li>break funcname</li>
+<li>break filename:linenum</li>
+<li>break filename:funcname<h3 id="运行（设置断点之后）"><a href="#运行（设置断点之后）" class="headerlink" title="运行（设置断点之后）"></a>运行（设置断点之后）</h3><h3 id="查看变量值-print-x"><a href="#查看变量值-print-x" class="headerlink" title="查看变量值 print x"></a>查看变量值 print x</h3><h3 id="看变量类型-whatis-x"><a href="#看变量类型-whatis-x" class="headerlink" title="看变量类型 whatis x"></a>看变量类型 whatis x</h3><h3 id="查看断点信息-info-break"><a href="#查看断点信息-info-break" class="headerlink" title="查看断点信息 info break"></a>查看断点信息 info break</h3>因为调试可以添加很多断点。<h3 id="continue-命令从断点继续执行"><a href="#continue-命令从断点继续执行" class="headerlink" title="continue 命令从断点继续执行"></a>continue 命令从断点继续执行</h3><h3 id="delete-删除一个断点"><a href="#delete-删除一个断点" class="headerlink" title="delete 删除一个断点"></a>delete 删除一个断点</h3></li>
+</ul>
+<h3 id="改变一个变量的值"><a href="#改变一个变量的值" class="headerlink" title="改变一个变量的值"></a>改变一个变量的值</h3><p>set variable varname = value</p>
+<h3 id="单步调试"><a href="#单步调试" class="headerlink" title="单步调试"></a>单步调试</h3><ul>
+<li>step  当遇到函数，step进入</li>
+<li>next</li>
+<li>return</li>
+</ul>
 
       
     </div>
@@ -369,8 +378,6 @@
           
             <a href="/tags/C-C/" rel="tag"># C/C++</a>
           
-            <a href="/tags/Memory-Management/" rel="tag"># Memory Management</a>
-          
         </div>
       
 
@@ -382,14 +389,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/16/makefile/" rel="next" title="Makefile">
+                <i class="fa fa-chevron-left"></i> Makefile
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/10/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/16/处理机调度/" rel="prev" title="处理机调度">
+                处理机调度 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -522,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#size-t"><span class="nav-number">1.</span> <span class="nav-text">size_t</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#由来"><span class="nav-number">1.1.</span> <span class="nav-text">由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size-t占用真实的内存空间"><span class="nav-number">1.2.</span> <span class="nav-text">size_t占用真实的内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size-t的作用"><span class="nav-number">1.3.</span> <span class="nav-text">size_t的作用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gdb使用笔记"><span class="nav-number">1.</span> <span class="nav-text">gdb使用笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一，段出错调试（借助core）"><span class="nav-number">1.1.</span> <span class="nav-text">一，段出错调试（借助core）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#core文件"><span class="nav-number">1.1.1.</span> <span class="nav-text">core文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where指令"><span class="nav-number">1.1.2.</span> <span class="nav-text">where指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#listz指令"><span class="nav-number">1.1.3.</span> <span class="nav-text">listz指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quit指令"><span class="nav-number">1.1.4.</span> <span class="nav-text">quit指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二，其它情况调试"><span class="nav-number">1.2.</span> <span class="nav-text">二，其它情况调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置断点"><span class="nav-number">1.2.1.</span> <span class="nav-text">设置断点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行（设置断点之后）"><span class="nav-number">1.2.2.</span> <span class="nav-text">运行（设置断点之后）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看变量值-print-x"><span class="nav-number">1.2.3.</span> <span class="nav-text">查看变量值 print x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#看变量类型-whatis-x"><span class="nav-number">1.2.4.</span> <span class="nav-text">看变量类型 whatis x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看断点信息-info-break"><span class="nav-number">1.2.5.</span> <span class="nav-text">查看断点信息 info break</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#continue-命令从断点继续执行"><span class="nav-number">1.2.6.</span> <span class="nav-text">continue 命令从断点继续执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#delete-删除一个断点"><span class="nav-number">1.2.7.</span> <span class="nav-text">delete 删除一个断点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变一个变量的值"><span class="nav-number">1.2.8.</span> <span class="nav-text">改变一个变量的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单步调试"><span class="nav-number">1.2.9.</span> <span class="nav-text">单步调试</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

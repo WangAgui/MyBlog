@@ -253,6 +253,1434 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/Web服务器原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/16/Web服务器原理/" itemprop="url">Web服务器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:57:10+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="web服务器基础"><a href="#web服务器基础" class="headerlink" title="web服务器基础"></a>web服务器基础</h1><p>Web服务器和HTTP服务器可以说是同一个东西，当然非得细分的话，<strong>HTTP服务器</strong>是建立在HTTP协议之上的提供文档浏览的服务器，<strong>更多的是提供静态的文件。</strong></p>
+<p>而Web服务器涵盖了HTTP服务器(这一点可以自行百度百科), Web服务器不仅能够存储信息，还能在用户通过Web浏览器提供的信息的基础上运行脚本和程序。</p>
+<p><strong>Web服务器 约等于 HTTP服务器 + 其他服务</strong></p>
+<p>目前所熟知的Web服务器有很多，其最主流的是 Apache, Nginx, IIS<br>各大Web服务器的实现细节都不同，是为了某种情形而设计开发的。但是它们的基础工作原理是相同的，这也是本次基础篇所讲解的内容。</p>
+<h2 id="web服务器工作原理"><a href="#web服务器工作原理" class="headerlink" title="web服务器工作原理"></a>web服务器工作原理</h2><p><img src="https://img-blog.csdn.net/2018081414285716?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<ul>
+<li>用户做出了一个操作，可以是填写网址敲回车，可以是点击链接，可以是点击按键等，接着浏览器获取了该事件。</li>
+<li>浏览器与对端服务程序建立<strong>TCP连接</strong>。</li>
+<li>浏览器将用户的事件按照HTTP协议格式**打包成一个数据包，其实质就是在待发送缓冲区中的一段有着HTTP协议格式的字节流。</li>
+<li>浏览器确认对端可写，并将该数据包推入Internet，该包经过网络最终递交到对端服务程序。</li>
+<li>服务端程序拿到该数据包后，同样以HTTP协议格式解包，然后解析客户端的意图</li>
+<li>得知客户端意图后，进行分类处理，或是提供某种文件、或是处理数据。</li>
+<li>将结果装入缓冲区，或是HTML文件、或是一张图片等。</li>
+<li>按照HTTP协议格式将(7)中的数据打包</li>
+<li>服务器确认对端可写，并将该数据包推入Internet，该包经过网络最终递交到客户端。</li>
+<li>浏览器拿到包后，以HTTP协议格式解包，然后解析数据，假设是HTML文件。</li>
+<li>浏览器将HTML文件展示在页面</li>
+</ul>
+<p><strong>这仅仅只是一个简单的网络通信。</strong></p>
+<p><strong>而Web服务器的本质就是 接收数据 ⇒ HTTP解析 ⇒ 逻辑处理 ⇒ HTTP封包 ⇒ 发送数据</strong></p>
+<h2 id="提供静态文件工作原理"><a href="#提供静态文件工作原理" class="headerlink" title="提供静态文件工作原理"></a>提供静态文件工作原理</h2><p><img src="https://img-blog.csdn.net/20180814154150395?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p><img src="https://img-blog.csdn.net/20180814161759296?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h2 id="web服务器之数据提交"><a href="#web服务器之数据提交" class="headerlink" title="web服务器之数据提交"></a>web服务器之数据提交</h2><p>仅仅只是网页的浏览并不能满足所有人的需求，客户端与服务器应当是有数据交互的。<br>即使单方面的资源请求任然是网络的主力军。</p>
+<p><img src="https://img-blog.csdn.net/20180814164541362?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h2 id="动态技术"><a href="#动态技术" class="headerlink" title="动态技术"></a>动态技术</h2><h3 id="服务端产生"><a href="#服务端产生" class="headerlink" title="服务端产生"></a>服务端产生</h3><h3 id="客户端产生"><a href="#客户端产生" class="headerlink" title="客户端产生"></a>客户端产生</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/类Unix目录结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/16/类Unix目录结构/" itemprop="url">类Unix目录结构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:55:36+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="bin"><a href="#bin" class="headerlink" title="bin"></a>bin</h3><p>系统可执行程序存放目录</p>
+<h3 id="boot"><a href="#boot" class="headerlink" title="boot"></a>boot</h3><p>内核和启动程序的相关文件</p>
+<h3 id="lib"><a href="#lib" class="headerlink" title="lib"></a>lib</h3><p>库目录，主要存放系统最基本的动态共享库</p>
+<h3 id="media"><a href="#media" class="headerlink" title="media"></a>media</h3><p>挂载设备媒体，U盘，光驱</p>
+<h3 id="mnt"><a href="#mnt" class="headerlink" title="mnt"></a>mnt</h3><p>该目录为了让用户挂载别的文件系统</p>
+<h3 id="usr"><a href="#usr" class="headerlink" title="usr"></a>usr</h3><p>不是user的缩写， 是 *<em>unix system resourse</em>，庞大和复杂的目录，很多为安装到这</p>
+<h3 id="sbin"><a href="#sbin" class="headerlink" title="sbin"></a>sbin</h3><p><strong>super bin</strong> ，这里面的可执行程序大多用不到，ifconfig就是里面的程序。</p>
+<h3 id="proc"><a href="#proc" class="headerlink" title="proc"></a>proc</h3><p>系统内存映射，保留进程执行信息。</p>
+<h3 id="etc"><a href="#etc" class="headerlink" title="etc"></a>etc</h3><p>系统软件的启动和配置目录。 比如<strong>etc/password</strong></p>
+<h3 id="dev"><a href="#dev" class="headerlink" title="dev"></a>dev</h3><p>存放设备文件</p>
+<p><strong>linux 一切皆文件</strong></p>
+<p>/home/user 用户家目录</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/处理机调度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/16/处理机调度/" itemprop="url">处理机调度</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:53:43+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一，操作系统处理机调度"><a href="#一，操作系统处理机调度" class="headerlink" title="一，操作系统处理机调度"></a>一，操作系统处理机调度</h1><p>资源并不能满足同时对许多进程服务</p>
+<h2 id="高级调度（作业调度）"><a href="#高级调度（作业调度）" class="headerlink" title="高级调度（作业调度）"></a>高级调度（作业调度）</h2><p>由于内存资源有限，无法将用户提交的作业全部放入内存，因此就需要确定某种规则来决定将作业调入内存的顺序。</p>
+<p><strong>高级调度是外存与内存之间的调度。</strong></p>
+<h2 id="中级调度"><a href="#中级调度" class="headerlink" title="中级调度"></a>中级调度</h2><p>引入虚拟存储技术后，会把内存中暂时运行不到的进程，调至外存等待。</p>
+<p><strong>目的是提高内存利用率和系统吞吐量</strong></p>
+<p>被暂时调度到外存的进程的状态称为<strong>挂起状态</strong>。值得注意，PCB不会一起调到外存，而是会常驻内存。  <strong>挂起队列</strong></p>
+<p><strong>中级调度为 把挂起队列中的进程调度到内存</strong>。</p>
+<h2 id="低级调度（进程调度）"><a href="#低级调度（进程调度）" class="headerlink" title="低级调度（进程调度）"></a>低级调度（进程调度）</h2><p>把进程调度到处理机运行。</p>
+<h3 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h3><ul>
+<li>剥夺方式</li>
+<li>非剥夺方式</li>
+</ul>
+<h1 id="二，调度算法"><a href="#二，调度算法" class="headerlink" title="二，调度算法"></a>二，调度算法</h1><h2 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h2><h3 id="CPU利用率"><a href="#CPU利用率" class="headerlink" title="CPU利用率"></a>CPU利用率</h3><h3 id="系统吞吐量"><a href="#系统吞吐量" class="headerlink" title="系统吞吐量"></a>系统吞吐量</h3><h3 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h3><h3 id="等待时间"><a href="#等待时间" class="headerlink" title="等待时间"></a>等待时间</h3><h3 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="先来先服务-FCFS"><a href="#先来先服务-FCFS" class="headerlink" title="先来先服务(FCFS)"></a>先来先服务(FCFS)</h3><ul>
+<li>非抢占</li>
+<li><p>对长作业有利<br>-</p>
+<h3 id="短作业优先-SJF"><a href="#短作业优先-SJF" class="headerlink" title="短作业优先(SJF)"></a>短作业优先(SJF)</h3><p>追求更少的平均等待时间，带权周转时间</p>
+</li>
+<li><p>对长作业不公平，会产生长作业饥饿的现象。</p>
+<h3 id="高响应比优先-HRRN"><a href="#高响应比优先-HRRN" class="headerlink" title="高响应比优先(HRRN)"></a>高响应比优先(HRRN)</h3></li>
+</ul>
+<p>相应比最高的得到服务。</p>
+<h3 id="时间片轮转"><a href="#时间片轮转" class="headerlink" title="时间片轮转"></a>时间片轮转</h3><h3 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h3><h3 id="多级反馈队列调度"><a href="#多级反馈队列调度" class="headerlink" title="多级反馈队列调度"></a>多级反馈队列调度</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/gdb使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/16/gdb使用/" itemprop="url">gdb使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:46:05+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/调试/" itemprop="url" rel="index">
+                    <span itemprop="name">调试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="gdb使用笔记"><a href="#gdb使用笔记" class="headerlink" title="gdb使用笔记"></a>gdb使用笔记</h1><p>若需使用gdb，那么gcc<strong>编译</strong>时一定要加-g选项，这样编译出来就有调试信息了。</p>
+<h2 id="一，段出错调试（借助core）"><a href="#一，段出错调试（借助core）" class="headerlink" title="一，段出错调试（借助core）"></a>一，段出错调试（借助core）</h2><h3 id="core文件"><a href="#core文件" class="headerlink" title="core文件"></a>core文件</h3><p>core文件是类unix生成的内存出错镜像文件。默认是不生成的。<strong>需要在.bashrc（在宿主目录中）文件中添加   ulimit -c unlimited</strong></p>
+<h3 id="where指令"><a href="#where指令" class="headerlink" title="where指令"></a>where指令</h3><p>能看，在几行出了问题。</p>
+<h3 id="listz指令"><a href="#listz指令" class="headerlink" title="listz指令"></a>listz指令</h3><p>列出出错行的上下文。默认一次十行。</p>
+<h3 id="quit指令"><a href="#quit指令" class="headerlink" title="quit指令"></a>quit指令</h3><p>退出gdb调试</p>
+<h2 id="二，其它情况调试"><a href="#二，其它情况调试" class="headerlink" title="二，其它情况调试"></a>二，其它情况调试</h2><h3 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h3><ul>
+<li>break linenum</li>
+<li>break funcname</li>
+<li>break filename:linenum</li>
+<li>break filename:funcname<h3 id="运行（设置断点之后）"><a href="#运行（设置断点之后）" class="headerlink" title="运行（设置断点之后）"></a>运行（设置断点之后）</h3><h3 id="查看变量值-print-x"><a href="#查看变量值-print-x" class="headerlink" title="查看变量值 print x"></a>查看变量值 print x</h3><h3 id="看变量类型-whatis-x"><a href="#看变量类型-whatis-x" class="headerlink" title="看变量类型 whatis x"></a>看变量类型 whatis x</h3><h3 id="查看断点信息-info-break"><a href="#查看断点信息-info-break" class="headerlink" title="查看断点信息 info break"></a>查看断点信息 info break</h3>因为调试可以添加很多断点。<h3 id="continue-命令从断点继续执行"><a href="#continue-命令从断点继续执行" class="headerlink" title="continue 命令从断点继续执行"></a>continue 命令从断点继续执行</h3><h3 id="delete-删除一个断点"><a href="#delete-删除一个断点" class="headerlink" title="delete 删除一个断点"></a>delete 删除一个断点</h3></li>
+</ul>
+<h3 id="改变一个变量的值"><a href="#改变一个变量的值" class="headerlink" title="改变一个变量的值"></a>改变一个变量的值</h3><p>set variable varname = value</p>
+<h3 id="单步调试"><a href="#单步调试" class="headerlink" title="单步调试"></a>单步调试</h3><ul>
+<li>step  当遇到函数，step进入</li>
+<li>next</li>
+<li>return</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/makefile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/16/makefile/" itemprop="url">Makefile</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:44:20+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/shell/" itemprop="url" rel="index">
+                    <span itemprop="name">shell</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h1><p>makefile是一个文本形式的脚本文件，其中包含一些规则告诉make编译哪些文件，怎么样编译以及在什么条件下编译</p>
+<p>make命令会自动查找当前目录下的makefile文件（Makefile），找到之后会解析文件，并执行makefile文件的内容。</p>
+<p>@符号作用:   在命令前面加@，则make执行时不打印相应命令信息。</p>
+<p><strong>可以有多个标号。</strong> 但是，默认只执行第一个标号的内容，其他标号都忽略。<br>若想执行其它标号，需加参数-》 <strong>make 标号名</strong>，如make all。</p>
+<h2 id="make-f-文件名-一般不使用，不专业，但具有这个特性"><a href="#make-f-文件名-一般不使用，不专业，但具有这个特性" class="headerlink" title="make -f 文件名(一般不使用，不专业，但具有这个特性)"></a>make -f 文件名(一般不使用，不专业，但具有这个特性)</h2><p>若makefile文件不叫makefile，用make时需指定文件  <strong>make -f 文件名</strong>，例如写一个名字为aaa的makefile文件  那么 <strong>make -f aaa</strong>，是一样可行的。</p>
+<h2 id="makefile主要功能是编译"><a href="#makefile主要功能是编译" class="headerlink" title="makefile主要功能是编译"></a>makefile主要功能是编译</h2><p>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start:</span><br><span class="line">    g++ -o hello hello.cpp</span><br></pre></td></tr></table></figure>
+<p>最简单的makefile写法。</p>
+<h2 id="rm-rf-文件名"><a href="#rm-rf-文件名" class="headerlink" title="rm -rf 文件名"></a>rm -rf 文件名</h2><p>强行删除不提示。</p>
+<h2 id="标号clean"><a href="#标号clean" class="headerlink" title="标号clean"></a>标号clean</h2><p>主要功能是删除文件，在大型项目中一次需删除成千上百文件，不可能手动删除。<br>将rm写到<strong>clean</strong>标号中，下次直接调用 <strong>make clean</strong>。</p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start:hello.o</span><br><span class="line">    g++ -o hello hello.o</span><br><span class="line">hello.o:</span><br><span class="line">    g++ -o hello.o hello.cpp</span><br></pre></td></tr></table></figure>
+<h2 id="错误情况："><a href="#错误情况：" class="headerlink" title="错误情况："></a>错误情况：</h2><p>1.编译错误<br>2.makefile文件写错。</p>
+<h2 id="为简化维护，可使用变量"><a href="#为简化维护，可使用变量" class="headerlink" title="为简化维护，可使用变量"></a>为简化维护，可使用变量</h2><p>例如 CC = gcc,<strong>变量一般都是大写的</strong>。然后下面需要用gcc时可用$(CC)替换。</p>
+<p>为什么如此呢？？？<strong>有利于维护</strong></p>
+<h2 id="潜规则"><a href="#潜规则" class="headerlink" title="潜规则"></a>潜规则</h2><p>对于.o文件变量名称往往是OBJS。<br>对于源文件，往往 SRCS</p>
+<h2 id="OBJS-SRCS-c-o"><a href="#OBJS-SRCS-c-o" class="headerlink" title="OBJS = $(SRCS:.c=.o)"></a>OBJS = $(SRCS:.c=.o)</h2><p>$(SRCS)就是hello.c</p>
+<p>$(SRCS:.c=.o)的意思是把$(SRCS)变量中的.c替换成.o</p>
+<p>这是 $(OBJS) 就是 hello.o</p>
+<h2 id="SUFFIXES-c-o"><a href="#SUFFIXES-c-o" class="headerlink" title=".SUFFIXES:.c .o"></a>.SUFFIXES:.c .o</h2><p>.c和.o中间还必须有空格。</p>
+<p>该命令一定要出现在makefile文件的第一行。代表.c文件和.o文件是有关系的。</p>
+<p>当执行到标号start时，有$(OBJS)的依赖，这时，makej就会去.c.o这个标号去执行（因为一开始告诉make .c.o 是有关系的）。</p>
+<p>在.c.o文件中 ，<strong>$@代码.o文件，$&lt;代表.c文件</strong>.</p>
+<h2 id="达到的效果"><a href="#达到的效果" class="headerlink" title="达到的效果"></a>达到的效果</h2><p>用makefile，只有项目中修改过的.c文件才编译。这样可以大大节省编译时间。</p>
+<h2 id="不建议每次都把-o文件删除，这样会导致重新编译。"><a href="#不建议每次都把-o文件删除，这样会导致重新编译。" class="headerlink" title="不建议每次都把.o文件删除，这样会导致重新编译。"></a>不建议每次都把.o文件删除，这样会导致重新编译。</h2><h2 id="终极makefile"><a href="#终极makefile" class="headerlink" title="终极makefile"></a>终极makefile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">.SUFFIXES:.cpp .o</span><br><span class="line">CC = g++</span><br><span class="line">SRCS = hello.cpp\</span><br><span class="line">        head.cpp</span><br><span class="line">OBJS = hello.o\</span><br><span class="line">       head.o</span><br><span class="line">EXEC = hello</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start: $(OBJS)</span><br><span class="line">        $(CC) -o $(EXEC) $(OBJS)</span><br><span class="line">.cpp.o:</span><br><span class="line">        $(CC) -o $@ -c $&lt;</span><br><span class="line"></span><br><span class="line">clean:</span><br><span class="line">        rm -rf $(OBJS) $(EXEC)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/c++深浅拷贝/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/16/c++深浅拷贝/" itemprop="url">c++深浅拷贝</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:29:29+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C/C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="拷贝构造函数（深拷贝，浅拷贝）"><a href="#拷贝构造函数（深拷贝，浅拷贝）" class="headerlink" title="拷贝构造函数（深拷贝，浅拷贝）"></a>拷贝构造函数（深拷贝，浅拷贝）</h1><p>拷贝构造函数是一种特殊的构造函数，它的唯一的参数是本类型的一个引用变量，该参数是const类型的，不可变。</p>
+<p>会出现拷贝构造函数的情况如下：</p>
+<ul>
+<li>一个对象以值传递方式传入函数体</li>
+<li>一个对象以值传递方式从函数返回</li>
+<li>一个对象需要通过另一个对象进行初始化</li>
+</ul>
+<p><strong>如果类中没有显示的声明拷贝构造函数，编译器会生成默认的拷贝构造函数</strong>,该构造函数完成对象之间的<strong>位拷贝</strong>，又称<strong>浅拷贝</strong>。</p>
+<p>自定义拷贝构造函数是一种良好的编程风格，它可以阻止编译器形成默认的拷贝构造函数，提高源码效率。</p>
+<h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h2><p>深拷贝和浅拷贝可以简单理解为：如果一个类拥有资源，当这个类的对象发生复制过程的时候，资源重新分配，这个过程就是深拷贝，反之，没有重新分配资源，就是浅拷贝。</p>
+<p><strong>当类中存在指针或其它系统资源，需要用深拷贝。</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/c++Static关键字/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/16/c++Static关键字/" itemprop="url">c/c++ Static关键字</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:16:04+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C/C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Static-关键字作用总结"><a href="#Static-关键字作用总结" class="headerlink" title="Static 关键字作用总结"></a>Static 关键字作用总结</h1><h2 id="一-隐藏"><a href="#一-隐藏" class="headerlink" title="一 隐藏"></a>一 隐藏</h2><p>当同时编译多个文件，所有未加static前缀的全局变量和函数，都具有全局可见性。</p>
+<h2 id="二-保持变量内容持久"><a href="#二-保持变量内容持久" class="headerlink" title="二 保持变量内容持久"></a>二 保持变量内容持久</h2><p>什么意思呢，存储在静态存储区的变量会在程序刚运行时就完成初始化，也是<strong>唯一的一次初始化</strong>。</p>
+<p><strong>有两种变量存储在静态存储区：全局和static变量</strong></p>
+<p>区别在在于和全局相比，static可以用来控制变量范围，<strong>说到底还是为了隐藏</strong>。</p>
+<p>如果作为static局部变量在函数内定义，它的生存期为整个源程序，但是其作用域仍与自动变量相同，只能在定义该变量的函数内使用该变量。退出该函数后， 尽管该变量还继续存在，但不能使用它。</p>
+<h2 id="三-默认初始化为0"><a href="#三-默认初始化为0" class="headerlink" title="三 默认初始化为0"></a>三 默认初始化为0</h2><p>在静态数据区，内存中所有的字节默认值都是0x00，某些时候这一特点可以减少程序员的工作量。</p>
+<p><strong>最后对static的三条作用做一句话总结。首先static的最主要功能是隐藏，其次因为static变量存放在静态存储区，所以它具备持久性和默认值</strong></p>
+<h2 id="四-c-中的类成员声明static"><a href="#四-c-中的类成员声明static" class="headerlink" title="四 c++中的类成员声明static"></a>四 c++中的类成员声明static</h2><p>在类中声明static变量或函数时，初始化时使用作用域运算符来标明它属的类，因此，<strong>静态成员是类的成员，不是对象的成员</strong>。</p>
+<ul>
+<li><strong>类的静态成员函数是属于整个类而非类的对象，所以它没有this指针，这就导致 了它仅能访问类的静态数据和静态成员函数。</strong></li>
+<li>不能将静态成员函数定义为虚函数</li>
+<li>静态成员没有this指针</li>
+<li>静态数据成员是静态存储的，所以必须对它进行初始化。 （程序员手动初始化，否则编译时一般不会报错，但是在Link时会报错误）</li>
+<li>静态成员初始化与一般数据成员初始化不同:<br><strong>&lt;数据类型&gt;&lt;类名&gt;::&lt;静态数据成员名&gt;=&lt;值&gt;</strong><br>例如 <strong>int MyClass::MyValue;</strong></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/套接字接口/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/套接字接口/" itemprop="url">套接字接口</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T19:32:33+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="套接字接口"><a href="#套接字接口" class="headerlink" title="套接字接口"></a>套接字接口</h1><p>套接字接口是一组函数。结合Unix I/O函数，用以创建网络应用。绝大多数现代系统都实现了套接字接口。</p>
+<p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1557584525542&amp;di=251650fca844194e8616430d3b4b4984&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.yeolar.com%2Fmedia%2Fnote%2F2012%2F05%2F18%2Flinux-socket%2Ffig1.png" alt="image"></p>
+<h2 id="地址结构"><a href="#地址结构" class="headerlink" title="地址结构"></a>地址结构</h2><p>从<strong>Linux内核结构</strong>来看，一个套接字就是通信的一个端点；从Linux程序员的角度来看，套接字就是一个有相应描述符的打开文件。</p>
+<h2 id="socket函数"><a href="#socket函数" class="headerlink" title="socket函数"></a>socket函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">int socket(int domain,int tpye,int protocol);</span><br><span class="line"></span><br><span class="line">clientfd=socket(AF_INET,SOCK_STREAM,0);</span><br></pre></td></tr></table></figure>
+<p>socket返回的<strong>clientfd描述符</strong>仅是部分打开的，还不能用于读写。如何完成打开套接字的工作，取决于我们是客户端还是服务器端。</p>
+<h2 id="connect函数"><a href="#connect函数" class="headerlink" title="connect函数"></a>connect函数</h2><p><strong>客户端</strong>通过调用connect函数来建立和服务器的连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">int connect(int sockfd,struct sockadd *serv_addr,int addrlen);</span><br></pre></td></tr></table></figure>
+<p>connect函数试图与套接字地址为 addr 的服务器建立一个因特网连接。</p>
+<p>如果成功，那么clientfd描述符现在就准备号开始读写了，得到：</p>
+<pre><code>(x:y, addr.sin_addr:addr.sin_port);
+</code></pre><p>其中，x和y表示客户端的IP和临时端口，它唯一的确定了客户端主机上的客户端进程。</p>
+<h2 id="bind函数"><a href="#bind函数" class="headerlink" title="bind函数"></a>bind函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">int bind(int sockfd,struct sockaddr *my_addr,int addrlen);</span><br></pre></td></tr></table></figure>
+<p>该函数告诉内核将addr中的服务器套接字地址和套接字描述符sockfd联系起来。</p>
+<h2 id="listen函数"><a href="#listen函数" class="headerlink" title="listen函数"></a>listen函数</h2><p>客户端是发起连接请求的主动实体。服务器是等待来自客户端的连接请求的被动实体。 服务器调用listen告诉内核，描述符是被服务器而不是客户端使用的。 <strong>它将sockfd从一个主动套接字转化为一个监听套接字</strong>。</p>
+<h2 id="accept函数"><a href="#accept函数" class="headerlink" title="accept函数"></a>accept函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">int accept(int listenfd,struct sockaddr *addr,int *addrlen);</span><br></pre></td></tr></table></figure>
+<p>accept函数等待来自客户端的连接请求到达侦听描述符listendf，然后在addr中填写客户端的套接字地址，并返回一个<strong>已连接描述符</strong>。</p>
+<p><strong>注：</strong></p>
+<p>监听描述符是作为客户端连接请求的一个端点，它通常指被创建一次，并存在服务器的整个声明周期。已连接描述符是客户端和服务器端之间已经建立起来了的连接的一个端点。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/接入网/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang Agui">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王阿贵的技术小窝！">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/接入网/" itemprop="url">接入网技术</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T11:54:58+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="接入网"><a href="#接入网" class="headerlink" title="接入网"></a>接入网</h1><p>接入网技术是指将端系统物理连接到其边缘路由器。<strong>边缘路由器</strong> 是端系统到任何其他网络的<strong>第一台路由器</strong>。</p>
+<h2 id="一，家庭接入"><a href="#一，家庭接入" class="headerlink" title="一，家庭接入"></a>一，家庭接入</h2><h3 id="数字用户线（DSL）"><a href="#数字用户线（DSL）" class="headerlink" title="数字用户线（DSL）"></a>数字用户线（DSL）</h3><p>用户从提供本地电话接入的电话公司获得DSL因特网接入。当使用DSL时，用户的本地电话公司也是它的ISP。</p>
+<p>这时需要用到调制解调器这种设备。</p>
+<p>家庭电话线同时承载数据和传统的电话信号，它们用不同频率编码：</p>
+<ul>
+<li>高速下行信道 50kHz~1MHz</li>
+<li>中速上行信道 4kHz~50kHz</li>
+<li>普通的双向电话信道 0~4kHz</li>
+</ul>
+<p>这种方法，使得一根电话线像三根一样。因为上行速率与下行速率不对称，所以这种服务是不对称的。</p>
+<p><strong>DSL服务利用了电话公司现有的电话基础设施</strong></p>
+<h3 id="电缆因特网接入"><a href="#电缆因特网接入" class="headerlink" title="电缆因特网接入"></a>电缆因特网接入</h3><p><strong>电缆因特网接入利用了电视公司现有的有线电视基础设施</strong></p>
+<p>这种方法同样需要调解，需要特殊的电缆调制解调器。比较类似DSL接入</p>
+<h3 id="光纤到户-Fiber-To-The-Home-FTTH"><a href="#光纤到户-Fiber-To-The-Home-FTTH" class="headerlink" title="光纤到户 Fiber To The Home FTTH"></a>光纤到户 Fiber To The Home FTTH</h3><p>本地中心局直接到家庭提供一条光纤路径。</p>
+<h2 id="二，企业接入"><a href="#二，企业接入" class="headerlink" title="二，企业接入"></a>二，企业接入</h2><h3 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h3><p>以太网属于局域网LAN，是目前为止公司，大学和家庭网络中最流行的接入技术。</p>
+<h3 id="Wifi"><a href="#Wifi" class="headerlink" title="Wifi"></a>Wifi</h3><p>是基于IEEE802.11技术的无线网LAN接入。</p>
+<h2 id="三，广域网接入"><a href="#三，广域网接入" class="headerlink" title="三，广域网接入"></a>三，广域网接入</h2><h3 id="3G"><a href="#3G" class="headerlink" title="3G"></a>3G</h3><h3 id="LTE"><a href="#LTE" class="headerlink" title="LTE"></a>LTE</h3><p>源于3G技术。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/内存错误的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -392,308 +1820,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wang Agui">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王阿贵的技术小窝！">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/10/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Test/" itemprop="url" rel="index">
-                    <span itemprop="name">Test</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/size_t/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wang Agui">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="王阿贵的技术小窝！">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/10/size_t/" itemprop="url">c++ size_t</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="size-t"><a href="#size-t" class="headerlink" title="size_t"></a>size_t</h1><h2 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h2><p>在c++中，设计size_t是为了适应多个平台</p>
-<h2 id="size-t占用真实的内存空间"><a href="#size-t占用真实的内存空间" class="headerlink" title="size_t占用真实的内存空间"></a>size_t占用真实的内存空间</h2><p>取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。</p>
-<h2 id="size-t的作用"><a href="#size-t的作用" class="headerlink" title="size_t的作用"></a>size_t的作用</h2><p>使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。</p>
-<p>在标准C库中的许多函数使用的参数或者返回值都是表示的用字节表示的对象大小，比如说malloc(n) 函数的参数n指明了需要申请的空间大小，还有memcpy(s1, s2, n)的最后一个参数，表明需要复制的内存大小，strlen(s)函数的返回值表明了以’\0’结尾的字符串的长度（不包括’\0’），其返回值并不是该字符串的实际长度，因为要去掉’\0’。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void *malloc(size_t n);</span><br><span class="line"></span><br><span class="line">void *memcpy(void *s1, void const *s2, size_t n);</span><br><span class="line"></span><br><span class="line">size_t strlen(char const *s);</span><br></pre></td></tr></table></figure>
-<p>size_t还经常出现在C++标准库中，此外，C++库中经常会使用一个相似的类型size_type，用的可能比size_t还要多。<br>　　据我所知，大部分的C和C++程序员害怕这些库使用size_t，因为他们不知道size_t代表什么或者为什么这些库需要使用它，归根结底，原因在于他们什么时候什么地方需要用到它。</p>
-<p>size_t类型是一个类型定义，通常将一些无符号的整形定义为size_t，比如说unsigned int或者unsigned long，甚至unsigned long long。每一个标准C实现应该选择足够大的无符号整形来代表该平台上最大可能出现的对象大小。</p>
-<p><strong>适当地使用size_t还会使你的代码变得如同自带文档。当你看到一个对象声明为size_t类型，你马上就知道它代表字节大小或数组索引，而不是错误代码或者是一个普通的算术值。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -737,7 +1870,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -748,7 +1881,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -759,7 +1892,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

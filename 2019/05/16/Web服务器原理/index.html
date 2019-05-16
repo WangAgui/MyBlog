@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C/C++,Memory Management,">
+  <meta name="keywords" content="计算机网络,">
 
 
 
@@ -79,18 +79,23 @@
 
 
 
-<meta name="description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
-<meta name="keywords" content="C&#x2F;C++,Memory Management">
+<meta name="description" content="web服务器基础Web服务器和HTTP服务器可以说是同一个东西，当然非得细分的话，HTTP服务器是建立在HTTP协议之上的提供文档浏览的服务器，更多的是提供静态的文件。 而Web服务器涵盖了HTTP服务器(这一点可以自行百度百科), Web服务器不仅能够存储信息，还能在用户通过Web浏览器提供的信息的基础上运行脚本和程序。 Web服务器 约等于 HTTP服务器 + 其他服务 目前所熟知的Web服务">
+<meta name="keywords" content="计算机网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c++ size_t">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/size_t/index.html">
+<meta property="og:title" content="Web服务器">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/Web服务器原理/index.html">
 <meta property="og:site_name" content="王阿贵的技术小窝！">
-<meta property="og:description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
+<meta property="og:description" content="web服务器基础Web服务器和HTTP服务器可以说是同一个东西，当然非得细分的话，HTTP服务器是建立在HTTP协议之上的提供文档浏览的服务器，更多的是提供静态的文件。 而Web服务器涵盖了HTTP服务器(这一点可以自行百度百科), Web服务器不仅能够存储信息，还能在用户通过Web浏览器提供的信息的基础上运行脚本和程序。 Web服务器 约等于 HTTP服务器 + 其他服务 目前所熟知的Web服务">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T07:31:42.971Z">
+<meta property="og:image" content="https://img-blog.csdn.net/2018081414285716?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180814154150395?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180814161759296?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/20180814164541362?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-05-16T11:57:42.137Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c++ size_t">
-<meta name="twitter:description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
+<meta name="twitter:title" content="Web服务器">
+<meta name="twitter:description" content="web服务器基础Web服务器和HTTP服务器可以说是同一个东西，当然非得细分的话，HTTP服务器是建立在HTTP协议之上的提供文档浏览的服务器，更多的是提供静态的文件。 而Web服务器涵盖了HTTP服务器(这一点可以自行百度百科), Web服务器不仅能够存储信息，还能在用户通过Web浏览器提供的信息的基础上运行脚本和程序。 Web服务器 约等于 HTTP服务器 + 其他服务 目前所熟知的Web服务">
+<meta name="twitter:image" content="https://img-blog.csdn.net/2018081414285716?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 
 
 
@@ -120,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/size_t/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/Web服务器原理/">
 
 
 
 
 
-  <title>c++ size_t | 王阿贵的技术小窝！</title>
+  <title>Web服务器 | 王阿贵的技术小窝！</title>
   
 
 
@@ -253,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/size_t/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/Web服务器原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang Agui">
@@ -270,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c++ size_t</h1>
+          <h1 class="post-title" itemprop="name headline">Web服务器</h1>
         
 
         <div class="post-meta">
@@ -282,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:57:10+08:00">
+                2019-05-16
               </time>
             
 
@@ -305,8 +310,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
                   </a>
                 </span>
 
@@ -342,15 +347,31 @@
       
 
       
-        <h1 id="size-t"><a href="#size-t" class="headerlink" title="size_t"></a>size_t</h1><h2 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h2><p>在c++中，设计size_t是为了适应多个平台</p>
-<h2 id="size-t占用真实的内存空间"><a href="#size-t占用真实的内存空间" class="headerlink" title="size_t占用真实的内存空间"></a>size_t占用真实的内存空间</h2><p>取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。</p>
-<h2 id="size-t的作用"><a href="#size-t的作用" class="headerlink" title="size_t的作用"></a>size_t的作用</h2><p>使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。</p>
-<p>在标准C库中的许多函数使用的参数或者返回值都是表示的用字节表示的对象大小，比如说malloc(n) 函数的参数n指明了需要申请的空间大小，还有memcpy(s1, s2, n)的最后一个参数，表明需要复制的内存大小，strlen(s)函数的返回值表明了以’\0’结尾的字符串的长度（不包括’\0’），其返回值并不是该字符串的实际长度，因为要去掉’\0’。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void *malloc(size_t n);</span><br><span class="line"></span><br><span class="line">void *memcpy(void *s1, void const *s2, size_t n);</span><br><span class="line"></span><br><span class="line">size_t strlen(char const *s);</span><br></pre></td></tr></table></figure>
-<p>size_t还经常出现在C++标准库中，此外，C++库中经常会使用一个相似的类型size_type，用的可能比size_t还要多。<br>　　据我所知，大部分的C和C++程序员害怕这些库使用size_t，因为他们不知道size_t代表什么或者为什么这些库需要使用它，归根结底，原因在于他们什么时候什么地方需要用到它。</p>
-<p>size_t类型是一个类型定义，通常将一些无符号的整形定义为size_t，比如说unsigned int或者unsigned long，甚至unsigned long long。每一个标准C实现应该选择足够大的无符号整形来代表该平台上最大可能出现的对象大小。</p>
-<p><strong>适当地使用size_t还会使你的代码变得如同自带文档。当你看到一个对象声明为size_t类型，你马上就知道它代表字节大小或数组索引，而不是错误代码或者是一个普通的算术值。</strong></p>
-
+        <h1 id="web服务器基础"><a href="#web服务器基础" class="headerlink" title="web服务器基础"></a>web服务器基础</h1><p>Web服务器和HTTP服务器可以说是同一个东西，当然非得细分的话，<strong>HTTP服务器</strong>是建立在HTTP协议之上的提供文档浏览的服务器，<strong>更多的是提供静态的文件。</strong></p>
+<p>而Web服务器涵盖了HTTP服务器(这一点可以自行百度百科), Web服务器不仅能够存储信息，还能在用户通过Web浏览器提供的信息的基础上运行脚本和程序。</p>
+<p><strong>Web服务器 约等于 HTTP服务器 + 其他服务</strong></p>
+<p>目前所熟知的Web服务器有很多，其最主流的是 Apache, Nginx, IIS<br>各大Web服务器的实现细节都不同，是为了某种情形而设计开发的。但是它们的基础工作原理是相同的，这也是本次基础篇所讲解的内容。</p>
+<h2 id="web服务器工作原理"><a href="#web服务器工作原理" class="headerlink" title="web服务器工作原理"></a>web服务器工作原理</h2><p><img src="https://img-blog.csdn.net/2018081414285716?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<ul>
+<li>用户做出了一个操作，可以是填写网址敲回车，可以是点击链接，可以是点击按键等，接着浏览器获取了该事件。</li>
+<li>浏览器与对端服务程序建立<strong>TCP连接</strong>。</li>
+<li>浏览器将用户的事件按照HTTP协议格式**打包成一个数据包，其实质就是在待发送缓冲区中的一段有着HTTP协议格式的字节流。</li>
+<li>浏览器确认对端可写，并将该数据包推入Internet，该包经过网络最终递交到对端服务程序。</li>
+<li>服务端程序拿到该数据包后，同样以HTTP协议格式解包，然后解析客户端的意图</li>
+<li>得知客户端意图后，进行分类处理，或是提供某种文件、或是处理数据。</li>
+<li>将结果装入缓冲区，或是HTML文件、或是一张图片等。</li>
+<li>按照HTTP协议格式将(7)中的数据打包</li>
+<li>服务器确认对端可写，并将该数据包推入Internet，该包经过网络最终递交到客户端。</li>
+<li>浏览器拿到包后，以HTTP协议格式解包，然后解析数据，假设是HTML文件。</li>
+<li>浏览器将HTML文件展示在页面</li>
+</ul>
+<p><strong>这仅仅只是一个简单的网络通信。</strong></p>
+<p><strong>而Web服务器的本质就是 接收数据 ⇒ HTTP解析 ⇒ 逻辑处理 ⇒ HTTP封包 ⇒ 发送数据</strong></p>
+<h2 id="提供静态文件工作原理"><a href="#提供静态文件工作原理" class="headerlink" title="提供静态文件工作原理"></a>提供静态文件工作原理</h2><p><img src="https://img-blog.csdn.net/20180814154150395?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<p><img src="https://img-blog.csdn.net/20180814161759296?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h2 id="web服务器之数据提交"><a href="#web服务器之数据提交" class="headerlink" title="web服务器之数据提交"></a>web服务器之数据提交</h2><p>仅仅只是网页的浏览并不能满足所有人的需求，客户端与服务器应当是有数据交互的。<br>即使单方面的资源请求任然是网络的主力军。</p>
+<p><img src="https://img-blog.csdn.net/20180814164541362?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2MzU5MDIy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
+<h2 id="动态技术"><a href="#动态技术" class="headerlink" title="动态技术"></a>动态技术</h2><h3 id="服务端产生"><a href="#服务端产生" class="headerlink" title="服务端产生"></a>服务端产生</h3><h3 id="客户端产生"><a href="#客户端产生" class="headerlink" title="客户端产生"></a>客户端产生</h3>
       
     </div>
     
@@ -367,9 +388,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C-C/" rel="tag"># C/C++</a>
-          
-            <a href="/tags/Memory-Management/" rel="tag"># Memory Management</a>
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
           
         </div>
       
@@ -382,15 +401,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/16/类Unix目录结构/" rel="next" title="类Unix目录结构">
+                <i class="fa fa-chevron-left"></i> 类Unix目录结构
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/10/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -522,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#size-t"><span class="nav-number">1.</span> <span class="nav-text">size_t</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#由来"><span class="nav-number">1.1.</span> <span class="nav-text">由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size-t占用真实的内存空间"><span class="nav-number">1.2.</span> <span class="nav-text">size_t占用真实的内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size-t的作用"><span class="nav-number">1.3.</span> <span class="nav-text">size_t的作用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#web服务器基础"><span class="nav-number">1.</span> <span class="nav-text">web服务器基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web服务器工作原理"><span class="nav-number">1.1.</span> <span class="nav-text">web服务器工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供静态文件工作原理"><span class="nav-number">1.2.</span> <span class="nav-text">提供静态文件工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web服务器之数据提交"><span class="nav-number">1.3.</span> <span class="nav-text">web服务器之数据提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态技术"><span class="nav-number">1.4.</span> <span class="nav-text">动态技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端产生"><span class="nav-number">1.4.1.</span> <span class="nav-text">服务端产生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端产生"><span class="nav-number">1.4.2.</span> <span class="nav-text">客户端产生</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

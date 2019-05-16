@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C/C++,Memory Management,">
+  <meta name="keywords" content="OS,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
-<meta name="keywords" content="C&#x2F;C++,Memory Management">
+<meta name="description" content="一，操作系统处理机调度资源并不能满足同时对许多进程服务 高级调度（作业调度）由于内存资源有限，无法将用户提交的作业全部放入内存，因此就需要确定某种规则来决定将作业调入内存的顺序。 高级调度是外存与内存之间的调度。 中级调度引入虚拟存储技术后，会把内存中暂时运行不到的进程，调至外存等待。 目的是提高内存利用率和系统吞吐量 被暂时调度到外存的进程的状态称为挂起状态。值得注意，PCB不会一起调到外存，而">
+<meta name="keywords" content="OS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c++ size_t">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/size_t/index.html">
+<meta property="og:title" content="处理机调度">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/处理机调度/index.html">
 <meta property="og:site_name" content="王阿贵的技术小窝！">
-<meta property="og:description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
+<meta property="og:description" content="一，操作系统处理机调度资源并不能满足同时对许多进程服务 高级调度（作业调度）由于内存资源有限，无法将用户提交的作业全部放入内存，因此就需要确定某种规则来决定将作业调入内存的顺序。 高级调度是外存与内存之间的调度。 中级调度引入虚拟存储技术后，会把内存中暂时运行不到的进程，调至外存等待。 目的是提高内存利用率和系统吞吐量 被暂时调度到外存的进程的状态称为挂起状态。值得注意，PCB不会一起调到外存，而">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T07:31:42.971Z">
+<meta property="og:updated_time" content="2019-05-16T11:54:10.053Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c++ size_t">
-<meta name="twitter:description" content="size_t由来在c++中，设计size_t是为了适应多个平台 size_t占用真实的内存空间取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。 size_t的作用使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。 在标">
+<meta name="twitter:title" content="处理机调度">
+<meta name="twitter:description" content="一，操作系统处理机调度资源并不能满足同时对许多进程服务 高级调度（作业调度）由于内存资源有限，无法将用户提交的作业全部放入内存，因此就需要确定某种规则来决定将作业调入内存的顺序。 高级调度是外存与内存之间的调度。 中级调度引入虚拟存储技术后，会把内存中暂时运行不到的进程，调至外存等待。 目的是提高内存利用率和系统吞吐量 被暂时调度到外存的进程的状态称为挂起状态。值得注意，PCB不会一起调到外存，而">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/size_t/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/处理机调度/">
 
 
 
 
 
-  <title>c++ size_t | 王阿贵的技术小窝！</title>
+  <title>处理机调度 | 王阿贵的技术小窝！</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/size_t/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/处理机调度/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang Agui">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c++ size_t</h1>
+          <h1 class="post-title" itemprop="name headline">处理机调度</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T19:53:43+08:00">
+                2019-05-16
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
                   </a>
                 </span>
 
@@ -342,15 +342,28 @@
       
 
       
-        <h1 id="size-t"><a href="#size-t" class="headerlink" title="size_t"></a>size_t</h1><h2 id="由来"><a href="#由来" class="headerlink" title="由来"></a>由来</h2><p>在c++中，设计size_t是为了适应多个平台</p>
-<h2 id="size-t占用真实的内存空间"><a href="#size-t占用真实的内存空间" class="headerlink" title="size_t占用真实的内存空间"></a>size_t占用真实的内存空间</h2><p>取决于你生成的程序可以在多少位的机器上运行，若生成的是32位程序，则size_t占用4字节（unsigned int），若生成64位程序，则size_t占用8字节(unsigned long int)。</p>
-<h2 id="size-t的作用"><a href="#size-t的作用" class="headerlink" title="size_t的作用"></a>size_t的作用</h2><p>使用size_t可能会提高代码的可移植性，有效性或者可读性，或同时提高这三者。</p>
-<p>在标准C库中的许多函数使用的参数或者返回值都是表示的用字节表示的对象大小，比如说malloc(n) 函数的参数n指明了需要申请的空间大小，还有memcpy(s1, s2, n)的最后一个参数，表明需要复制的内存大小，strlen(s)函数的返回值表明了以’\0’结尾的字符串的长度（不包括’\0’），其返回值并不是该字符串的实际长度，因为要去掉’\0’。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void *malloc(size_t n);</span><br><span class="line"></span><br><span class="line">void *memcpy(void *s1, void const *s2, size_t n);</span><br><span class="line"></span><br><span class="line">size_t strlen(char const *s);</span><br></pre></td></tr></table></figure>
-<p>size_t还经常出现在C++标准库中，此外，C++库中经常会使用一个相似的类型size_type，用的可能比size_t还要多。<br>　　据我所知，大部分的C和C++程序员害怕这些库使用size_t，因为他们不知道size_t代表什么或者为什么这些库需要使用它，归根结底，原因在于他们什么时候什么地方需要用到它。</p>
-<p>size_t类型是一个类型定义，通常将一些无符号的整形定义为size_t，比如说unsigned int或者unsigned long，甚至unsigned long long。每一个标准C实现应该选择足够大的无符号整形来代表该平台上最大可能出现的对象大小。</p>
-<p><strong>适当地使用size_t还会使你的代码变得如同自带文档。当你看到一个对象声明为size_t类型，你马上就知道它代表字节大小或数组索引，而不是错误代码或者是一个普通的算术值。</strong></p>
-
+        <h1 id="一，操作系统处理机调度"><a href="#一，操作系统处理机调度" class="headerlink" title="一，操作系统处理机调度"></a>一，操作系统处理机调度</h1><p>资源并不能满足同时对许多进程服务</p>
+<h2 id="高级调度（作业调度）"><a href="#高级调度（作业调度）" class="headerlink" title="高级调度（作业调度）"></a>高级调度（作业调度）</h2><p>由于内存资源有限，无法将用户提交的作业全部放入内存，因此就需要确定某种规则来决定将作业调入内存的顺序。</p>
+<p><strong>高级调度是外存与内存之间的调度。</strong></p>
+<h2 id="中级调度"><a href="#中级调度" class="headerlink" title="中级调度"></a>中级调度</h2><p>引入虚拟存储技术后，会把内存中暂时运行不到的进程，调至外存等待。</p>
+<p><strong>目的是提高内存利用率和系统吞吐量</strong></p>
+<p>被暂时调度到外存的进程的状态称为<strong>挂起状态</strong>。值得注意，PCB不会一起调到外存，而是会常驻内存。  <strong>挂起队列</strong></p>
+<p><strong>中级调度为 把挂起队列中的进程调度到内存</strong>。</p>
+<h2 id="低级调度（进程调度）"><a href="#低级调度（进程调度）" class="headerlink" title="低级调度（进程调度）"></a>低级调度（进程调度）</h2><p>把进程调度到处理机运行。</p>
+<h3 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h3><ul>
+<li>剥夺方式</li>
+<li>非剥夺方式</li>
+</ul>
+<h1 id="二，调度算法"><a href="#二，调度算法" class="headerlink" title="二，调度算法"></a>二，调度算法</h1><h2 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h2><h3 id="CPU利用率"><a href="#CPU利用率" class="headerlink" title="CPU利用率"></a>CPU利用率</h3><h3 id="系统吞吐量"><a href="#系统吞吐量" class="headerlink" title="系统吞吐量"></a>系统吞吐量</h3><h3 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h3><h3 id="等待时间"><a href="#等待时间" class="headerlink" title="等待时间"></a>等待时间</h3><h3 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="先来先服务-FCFS"><a href="#先来先服务-FCFS" class="headerlink" title="先来先服务(FCFS)"></a>先来先服务(FCFS)</h3><ul>
+<li>非抢占</li>
+<li><p>对长作业有利<br>-</p>
+<h3 id="短作业优先-SJF"><a href="#短作业优先-SJF" class="headerlink" title="短作业优先(SJF)"></a>短作业优先(SJF)</h3><p>追求更少的平均等待时间，带权周转时间</p>
+</li>
+<li><p>对长作业不公平，会产生长作业饥饿的现象。</p>
+<h3 id="高响应比优先-HRRN"><a href="#高响应比优先-HRRN" class="headerlink" title="高响应比优先(HRRN)"></a>高响应比优先(HRRN)</h3></li>
+</ul>
+<p>相应比最高的得到服务。</p>
+<h3 id="时间片轮转"><a href="#时间片轮转" class="headerlink" title="时间片轮转"></a>时间片轮转</h3><h3 id="优先级调度"><a href="#优先级调度" class="headerlink" title="优先级调度"></a>优先级调度</h3><h3 id="多级反馈队列调度"><a href="#多级反馈队列调度" class="headerlink" title="多级反馈队列调度"></a>多级反馈队列调度</h3>
       
     </div>
     
@@ -367,9 +380,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C-C/" rel="tag"># C/C++</a>
-          
-            <a href="/tags/Memory-Management/" rel="tag"># Memory Management</a>
+            <a href="/tags/OS/" rel="tag"># OS</a>
           
         </div>
       
@@ -382,14 +393,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/05/16/gdb使用/" rel="next" title="gdb使用">
+                <i class="fa fa-chevron-left"></i> gdb使用
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/10/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/16/类Unix目录结构/" rel="prev" title="类Unix目录结构">
+                类Unix目录结构 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -522,7 +537,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#size-t"><span class="nav-number">1.</span> <span class="nav-text">size_t</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#由来"><span class="nav-number">1.1.</span> <span class="nav-text">由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size-t占用真实的内存空间"><span class="nav-number">1.2.</span> <span class="nav-text">size_t占用真实的内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#size-t的作用"><span class="nav-number">1.3.</span> <span class="nav-text">size_t的作用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一，操作系统处理机调度"><span class="nav-number">1.</span> <span class="nav-text">一，操作系统处理机调度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高级调度（作业调度）"><span class="nav-number">1.1.</span> <span class="nav-text">高级调度（作业调度）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中级调度"><span class="nav-number">1.2.</span> <span class="nav-text">中级调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#低级调度（进程调度）"><span class="nav-number">1.3.</span> <span class="nav-text">低级调度（进程调度）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式"><span class="nav-number">1.3.1.</span> <span class="nav-text">方式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二，调度算法"><span class="nav-number">2.</span> <span class="nav-text">二，调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#评价指标"><span class="nav-number">2.1.</span> <span class="nav-text">评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU利用率"><span class="nav-number">2.1.1.</span> <span class="nav-text">CPU利用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统吞吐量"><span class="nav-number">2.1.2.</span> <span class="nav-text">系统吞吐量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#周转时间"><span class="nav-number">2.1.3.</span> <span class="nav-text">周转时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等待时间"><span class="nav-number">2.1.4.</span> <span class="nav-text">等待时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应时间"><span class="nav-number">2.1.5.</span> <span class="nav-text">响应时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">2.2.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#先来先服务-FCFS"><span class="nav-number">2.2.1.</span> <span class="nav-text">先来先服务(FCFS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#短作业优先-SJF"><span class="nav-number">2.2.2.</span> <span class="nav-text">短作业优先(SJF)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高响应比优先-HRRN"><span class="nav-number">2.2.3.</span> <span class="nav-text">高响应比优先(HRRN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间片轮转"><span class="nav-number">2.2.4.</span> <span class="nav-text">时间片轮转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优先级调度"><span class="nav-number">2.2.5.</span> <span class="nav-text">优先级调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多级反馈队列调度"><span class="nav-number">2.2.6.</span> <span class="nav-text">多级反馈队列调度</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
