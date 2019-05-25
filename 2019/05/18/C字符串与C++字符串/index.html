@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C/C++,Memory Management,">
+  <meta name="keywords" content="C/C++,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="c语言中常见的内存错误对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。 一，间接引用坏指针进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。 间接引用坏指针的经典错误就是scanf。1">
-<meta name="keywords" content="C&#x2F;C++,Memory Management">
+<meta name="description" content="string 与 const char*C中的字符串说白了是字符数组，以/0结尾，而C++中的string是一个字符对象，里面封装了对象和函数，那么当遇到C++字符串确想用C处理，该如何方便的转换呢，事实上，很容易。 C字符串–&amp;gt;&amp;gt; C++字符串相当容易，直接赋值即可，因为string类实际上已经封装了适当的构造函数。 123string s;char *ch = &amp;quot;abcd">
+<meta name="keywords" content="C&#x2F;C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c&#x2F;c++ 内存出错常见问题">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/内存错误的问题/index.html">
+<meta property="og:title" content="C字符串与C++字符串转化">
+<meta property="og:url" content="http://yoursite.com/2019/05/18/C字符串与C++字符串/index.html">
 <meta property="og:site_name" content="王阿贵的技术小窝！">
-<meta property="og:description" content="c语言中常见的内存错误对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。 一，间接引用坏指针进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。 间接引用坏指针的经典错误就是scanf。1">
+<meta property="og:description" content="string 与 const char*C中的字符串说白了是字符数组，以/0结尾，而C++中的string是一个字符对象，里面封装了对象和函数，那么当遇到C++字符串确想用C处理，该如何方便的转换呢，事实上，很容易。 C字符串–&amp;gt;&amp;gt; C++字符串相当容易，直接赋值即可，因为string类实际上已经封装了适当的构造函数。 123string s;char *ch = &amp;quot;abcd">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T07:31:31.172Z">
+<meta property="og:updated_time" content="2019-05-18T13:33:48.445Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c&#x2F;c++ 内存出错常见问题">
-<meta name="twitter:description" content="c语言中常见的内存错误对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。 一，间接引用坏指针进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。 间接引用坏指针的经典错误就是scanf。1">
+<meta name="twitter:title" content="C字符串与C++字符串转化">
+<meta name="twitter:description" content="string 与 const char*C中的字符串说白了是字符数组，以/0结尾，而C++中的string是一个字符对象，里面封装了对象和函数，那么当遇到C++字符串确想用C处理，该如何方便的转换呢，事实上，很容易。 C字符串–&amp;gt;&amp;gt; C++字符串相当容易，直接赋值即可，因为string类实际上已经封装了适当的构造函数。 123string s;char *ch = &amp;quot;abcd">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/内存错误的问题/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/18/C字符串与C++字符串/">
 
 
 
 
 
-  <title>c/c++ 内存出错常见问题 | 王阿贵的技术小窝！</title>
+  <title>C字符串与C++字符串转化 | 王阿贵的技术小窝！</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/内存错误的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/C字符串与C++字符串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang Agui">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c/c++ 内存出错常见问题</h1>
+          <h1 class="post-title" itemprop="name headline">C字符串与C++字符串转化</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-18T21:30:33+08:00">
+                2019-05-18
               </time>
             
 
@@ -342,17 +342,12 @@
       
 
       
-        <h1 id="c语言中常见的内存错误"><a href="#c语言中常见的内存错误" class="headerlink" title="c语言中常见的内存错误"></a>c语言中常见的内存错误</h1><p>对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。</p>
-<h2 id="一，间接引用坏指针"><a href="#一，间接引用坏指针" class="headerlink" title="一，间接引用坏指针"></a>一，间接引用坏指针</h2><p>进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。</p>
-<p>间接引用坏指针的经典错误就是scanf。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,val)</span><br></pre></td></tr></table></figure></p>
-<p>若这样写的话，scanf将val解释为一个地址，并试图在这个地址上写一个字。幸运的时候，程序立即中止。但糟糕的情况，val对应的内容为虚拟内存里的合法的读/写区域，这将引起灾难性的，困惑的结果。</p>
-<h2 id="二，读未初始化的内存"><a href="#二，读未初始化的内存" class="headerlink" title="二，读未初始化的内存"></a>二，读未初始化的内存</h2><p>虽然bss内存位置总是被加载器初始化为0，但是对于堆内存不是这样。</p>
-<h2 id="三，引用不存在的变量"><a href="#三，引用不存在的变量" class="headerlink" title="三，引用不存在的变量"></a>三，引用不存在的变量</h2><p>没有经验的C程序员不理解栈规则，有时会引用不再合法的本地变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int *stackref ()&#123;</span><br><span class="line">  int val;</span><br><span class="line"></span><br><span class="line">  return &amp;val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个函数返回一个指针，指向栈里的一个局部变量，然后弹出它的栈帧。尽管p 仍然指向一个合法的内存地址，但是它已经不再指向一个合法的变量了。<br>若使用它，可能会修改另一个函数的栈帧，会带来灾难性后果。</p>
-<h2 id="四，引用空闲堆块中的数据"><a href="#四，引用空闲堆块中的数据" class="headerlink" title="四，引用空闲堆块中的数据"></a>四，引用空闲堆块中的数据</h2><p>有时候，我们先free了一段堆内存，然后又引用它。在引用的时候这段被free的堆可能已经分配给别的堆了，你再去写它，会破坏别的堆的数据。会潜在的带来令人迷惑的现象。</p>
-<h2 id="五，内存泄漏"><a href="#五，内存泄漏" class="headerlink" title="五，内存泄漏"></a>五，内存泄漏</h2><p>内存泄漏是隐形杀手。程序员不小心的忘记了释放已经分配的块。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void leak(int n)&#123;</span><br><span class="line">  int *x = (int*)malloc(n*sizeof(int));</span><br><span class="line"></span><br><span class="line">  return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果经常的调用leak，堆里会充满垃圾。对于像守护进程和服务器这样的程序来说，内存泄漏特别严重，因为根据定义这些进程不会终止。</p>
+        <h1 id="string-与-const-char"><a href="#string-与-const-char" class="headerlink" title="string 与 const char*"></a>string 与 const char*</h1><p>C中的字符串说白了是字符数组，以/0结尾，而C++中的string是一个字符对象，里面封装了对象和函数，那么当遇到C++字符串确想用C处理，该如何方便的转换呢，事实上，很容易。</p>
+<h2 id="C字符串–-gt-gt-C-字符串"><a href="#C字符串–-gt-gt-C-字符串" class="headerlink" title="C字符串–&gt;&gt; C++字符串"></a>C字符串–&gt;&gt; C++字符串</h2><p>相当容易，直接赋值即可，因为string类实际上已经封装了适当的构造函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s;</span><br><span class="line">char *ch = &quot;abcd&quot;;</span><br><span class="line">s = ch;</span><br></pre></td></tr></table></figure>
+<p>上面的代码实际上已经能很好的工作了。</p>
+<h2 id="C-字符串–-gt-gt-C字符串"><a href="#C-字符串–-gt-gt-C字符串" class="headerlink" title="C++字符串–&gt;&gt; C字符串"></a>C++字符串–&gt;&gt; C字符串</h2><p>倘若你知道string内部已经定义好了相应的函数，那便是相当简单的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const char *ch = s.c_str();</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -372,8 +367,6 @@
           
             <a href="/tags/C-C/" rel="tag"># C/C++</a>
           
-            <a href="/tags/Memory-Management/" rel="tag"># Memory Management</a>
-          
         </div>
       
 
@@ -385,8 +378,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/10/size_t/" rel="next" title="c++ size_t">
-                <i class="fa fa-chevron-left"></i> c++ size_t
+              <a href="/2019/05/17/内存泄漏/" rel="next" title="常见内存泄漏">
+                <i class="fa fa-chevron-left"></i> 常见内存泄漏
               </a>
             
           </div>
@@ -395,8 +388,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/11/接入网/" rel="prev" title="接入网技术">
-                接入网技术 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/20/文件共享/" rel="prev" title="文件共享">
+                文件共享 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -547,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c语言中常见的内存错误"><span class="nav-number">1.</span> <span class="nav-text">c语言中常见的内存错误</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一，间接引用坏指针"><span class="nav-number">1.1.</span> <span class="nav-text">一，间接引用坏指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二，读未初始化的内存"><span class="nav-number">1.2.</span> <span class="nav-text">二，读未初始化的内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三，引用不存在的变量"><span class="nav-number">1.3.</span> <span class="nav-text">三，引用不存在的变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四，引用空闲堆块中的数据"><span class="nav-number">1.4.</span> <span class="nav-text">四，引用空闲堆块中的数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五，内存泄漏"><span class="nav-number">1.5.</span> <span class="nav-text">五，内存泄漏</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#string-与-const-char"><span class="nav-number">1.</span> <span class="nav-text">string 与 const char*</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#C字符串–-gt-gt-C-字符串"><span class="nav-number">1.1.</span> <span class="nav-text">C字符串–&gt;&gt; C++字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-字符串–-gt-gt-C字符串"><span class="nav-number">1.2.</span> <span class="nav-text">C++字符串–&gt;&gt; C字符串</span></a></li></ol></li></ol></div>
             
 
           </div>

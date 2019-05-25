@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Test,">
+  <meta name="keywords" content="网络,Linux,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="Test">
+<meta name="description" content="读写套接字原理在使用套接字编程时，在客户端和服务端之间进行通信显得非常自然，无非就是双发的互相发送文件，但其实，通信的真实过程略显复。 细节：平时用的套接字描述符只是一个引用，它引用一个存放在操作系统内核中的套接字对象。这个套接字对象有两个重要的缓冲结构，读缓冲和写缓冲，它们都是有限大小的数组结构。 当对客户端的socket写入字节数组时，就是将字节数组拷贝到内核套接字对象的write buffe">
+<meta name="keywords" content="网络,Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/hello-world/index.html">
+<meta property="og:title" content="读写套接字">
+<meta property="og:url" content="http://yoursite.com/2019/05/25/读写套接字过程/index.html">
 <meta property="og:site_name" content="王阿贵的技术小窝！">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="读写套接字原理在使用套接字编程时，在客户端和服务端之间进行通信显得非常自然，无非就是双发的互相发送文件，但其实，通信的真实过程略显复。 细节：平时用的套接字描述符只是一个引用，它引用一个存放在操作系统内核中的套接字对象。这个套接字对象有两个重要的缓冲结构，读缓冲和写缓冲，它们都是有限大小的数组结构。 当对客户端的socket写入字节数组时，就是将字节数组拷贝到内核套接字对象的write buffe">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T07:31:51.393Z">
+<meta property="og:updated_time" content="2019-05-25T02:46:54.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="读写套接字">
+<meta name="twitter:description" content="读写套接字原理在使用套接字编程时，在客户端和服务端之间进行通信显得非常自然，无非就是双发的互相发送文件，但其实，通信的真实过程略显复。 细节：平时用的套接字描述符只是一个引用，它引用一个存放在操作系统内核中的套接字对象。这个套接字对象有两个重要的缓冲结构，读缓冲和写缓冲，它们都是有限大小的数组结构。 当对客户端的socket写入字节数组时，就是将字节数组拷贝到内核套接字对象的write buffe">
 
 
 
@@ -98,9 +98,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/25/读写套接字过程/">
 
 
 
 
 
-  <title>Hello World | 王阿贵的技术小窝！</title>
+  <title>读写套接字 | 王阿贵的技术小窝！</title>
   
 
 
@@ -147,7 +147,7 @@
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
-
+    
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
@@ -253,12 +253,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/读写套接字过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang Agui">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/wangagui.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">读写套接字</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T10:45:53+08:00">
+                2019-05-25
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Test/" itemprop="url" rel="index">
-                    <span itemprop="name">Test</span>
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
 
@@ -342,15 +342,15 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="读写套接字原理"><a href="#读写套接字原理" class="headerlink" title="读写套接字原理"></a>读写套接字原理</h1><p>在使用套接字编程时，在客户端和服务端之间进行通信显得非常自然，无非就是双发的互相发送文件，但其实，通信的真实过程略显复。</p>
+<h2 id="细节："><a href="#细节：" class="headerlink" title="细节："></a>细节：</h2><p>平时用的套接字描述符只是一个引用，它引用一个存放在操作系统内核中的套接字对象。这个套接字对象有两个重要的缓冲结构，<strong>读缓冲和写缓冲</strong>，它们都是<strong>有限大小</strong>的数组结构。</p>
+<p>当对客户端的socket写入字节数组时，就是将字节数组拷贝到内核套接字对象的<strong>write buffer</strong>中，内核网络模块会有单独的线程负责不停的将write buffer的数据<strong>拷贝至网卡硬件</strong>，网卡再将数据送到网线，经由一系列路由器交换机，送达服务器的网卡硬件中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">写的数据--&gt;写缓冲区</span><br><span class="line">写缓冲区--&gt;网卡</span><br><span class="line">网卡--&gt;路由器交换机</span><br><span class="line">路由器交换机--&gt;服务器网卡</span><br></pre></td></tr></table></figure>
+<p>同样，服务器内核中的网络模块也会有单独得线程不停地将收到的数据拷贝到套接字得read buffer中，等待用户读取。  最终服务器得用户进程通过socket引用得read方法把read buffer中得数据拷贝到用户程序得内存中。</p>
+<h2 id="IO阻塞"><a href="#IO阻塞" class="headerlink" title="IO阻塞"></a>IO阻塞</h2><p>可以发现，套接字对象得读写缓存都是有限的，所以过快的写和读都会导致IO阻塞</p>
+<h2 id="ACK"><a href="#ACK" class="headerlink" title="ACK"></a>ACK</h2><p>还有一点，当写缓冲的数据拷到网卡上，是不会立马清楚该数据的，而是在收到对方的ACK确认后，才会清除已经发送的数据。所以说，如果ack迟迟不来，写缓冲很快就会满。</p>
+<h2 id="速率"><a href="#速率" class="headerlink" title="速率"></a>速率</h2><p>如果读缓冲满了怎么办？网卡收到对方的消息怎么处理？一般来说就是<strong>丢弃，不给对方ack</strong>，如果对方发现没有ack，就会重传。</p>
+<p>缓冲为什么会满呢？因为<strong>对方发送速率太快</strong>，这时候tcp就会有一个动态窗口调整算法来限制对方发送速率了。</p>
 
       
     </div>
@@ -368,7 +368,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Test/" rel="tag"># Test</a>
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -381,8 +383,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/10/size_t/" rel="next" title="c++ size_t">
-                <i class="fa fa-chevron-left"></i> c++ size_t
+              <a href="/2019/05/20/文件共享/" rel="next" title="文件共享">
+                <i class="fa fa-chevron-left"></i> 文件共享
               </a>
             
           </div>
@@ -390,10 +392,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/10/内存错误的问题/" rel="prev" title="c/c++ 内存出错常见问题">
-                c/c++ 内存出错常见问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -459,6 +457,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/wangagui.jpg" alt="Wang Agui">
+            
               <p class="site-author-name" itemprop="name">Wang Agui</p>
               <p class="site-description motion-element" itemprop="description">蜗牛为梦想而生，做一个开拓者！</p>
           </div>
@@ -470,7 +470,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -481,7 +481,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -492,7 +492,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -502,6 +502,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/WangAgui" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1303377145@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
@@ -525,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#读写套接字原理"><span class="nav-number">1.</span> <span class="nav-text">读写套接字原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#细节："><span class="nav-number">1.1.</span> <span class="nav-text">细节：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO阻塞"><span class="nav-number">1.2.</span> <span class="nav-text">IO阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ACK"><span class="nav-number">1.3.</span> <span class="nav-text">ACK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#速率"><span class="nav-number">1.4.</span> <span class="nav-text">速率</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -533,6 +549,11 @@
       <!--/noindex-->
       
 
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
       
 
     </div>
@@ -545,7 +566,8 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -555,6 +577,11 @@
 </div>
 
 
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
   <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
@@ -563,7 +590,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
@@ -580,11 +607,6 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     
@@ -609,6 +631,8 @@
 
   
 
+
+  
 
 
 
@@ -648,6 +672,11 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

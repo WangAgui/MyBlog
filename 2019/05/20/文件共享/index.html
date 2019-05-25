@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C/C++,Memory Management,">
+  <meta name="keywords" content="OS,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="c语言中常见的内存错误对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。 一，间接引用坏指针进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。 间接引用坏指针的经典错误就是scanf。1">
-<meta name="keywords" content="C&#x2F;C++,Memory Management">
+<meta name="description" content="文件共享机制文件共享与“复制”有很大区别!! 一，基于索引结点的共享（硬链接）回顾:索引结点 用户1的目录：文件名 | 索引结点指针—|—… | ……aaa | p1 用户2的目录：文件名 | 索引结点指针—|—… | ……bbb | p2 123456graph LRp1--&amp;gt;索引结点p2--&amp;gt;索引结点索引结点--&amp;gt;文件 硬链接即 不同目录的索引结点指针指向同一个索引节点。 二">
+<meta name="keywords" content="OS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="c&#x2F;c++ 内存出错常见问题">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/内存错误的问题/index.html">
+<meta property="og:title" content="文件共享">
+<meta property="og:url" content="http://yoursite.com/2019/05/20/文件共享/index.html">
 <meta property="og:site_name" content="王阿贵的技术小窝！">
-<meta property="og:description" content="c语言中常见的内存错误对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。 一，间接引用坏指针进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。 间接引用坏指针的经典错误就是scanf。1">
+<meta property="og:description" content="文件共享机制文件共享与“复制”有很大区别!! 一，基于索引结点的共享（硬链接）回顾:索引结点 用户1的目录：文件名 | 索引结点指针—|—… | ……aaa | p1 用户2的目录：文件名 | 索引结点指针—|—… | ……bbb | p2 123456graph LRp1--&amp;gt;索引结点p2--&amp;gt;索引结点索引结点--&amp;gt;文件 硬链接即 不同目录的索引结点指针指向同一个索引节点。 二">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-10T07:31:31.172Z">
+<meta property="og:updated_time" content="2019-05-20T13:11:23.734Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="c&#x2F;c++ 内存出错常见问题">
-<meta name="twitter:description" content="c语言中常见的内存错误对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。 一，间接引用坏指针进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。 间接引用坏指针的经典错误就是scanf。1">
+<meta name="twitter:title" content="文件共享">
+<meta name="twitter:description" content="文件共享机制文件共享与“复制”有很大区别!! 一，基于索引结点的共享（硬链接）回顾:索引结点 用户1的目录：文件名 | 索引结点指针—|—… | ……aaa | p1 用户2的目录：文件名 | 索引结点指针—|—… | ……bbb | p2 123456graph LRp1--&amp;gt;索引结点p2--&amp;gt;索引结点索引结点--&amp;gt;文件 硬链接即 不同目录的索引结点指针指向同一个索引节点。 二">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/内存错误的问题/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/20/文件共享/">
 
 
 
 
 
-  <title>c/c++ 内存出错常见问题 | 王阿贵的技术小窝！</title>
+  <title>文件共享 | 王阿贵的技术小窝！</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/内存错误的问题/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/文件共享/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang Agui">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">c/c++ 内存出错常见问题</h1>
+          <h1 class="post-title" itemprop="name headline">文件共享</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:28:28+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-20T21:10:49+08:00">
+                2019-05-20
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-C/" itemprop="url" rel="index">
-                    <span itemprop="name">C/C++</span>
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
                   </a>
                 </span>
 
@@ -342,17 +342,18 @@
       
 
       
-        <h1 id="c语言中常见的内存错误"><a href="#c语言中常见的内存错误" class="headerlink" title="c语言中常见的内存错误"></a>c语言中常见的内存错误</h1><p>对C/C++程序员来说，管理和使用虚拟内存困难且容易出错。与内存有关的错误常常令人惊恐，因为它们在时间和空间上常常距离错误源比较远。</p>
-<h2 id="一，间接引用坏指针"><a href="#一，间接引用坏指针" class="headerlink" title="一，间接引用坏指针"></a>一，间接引用坏指针</h2><p>进程的虚拟地址空间中有一个较大的洞，没有映射任何有意义的数据。如何我们试图引用一个指针指向这些洞，操作系统会以异常中止程序。而且有些区域是只读的，试图写这些区域会以保护异常中止程序。</p>
-<p>间接引用坏指针的经典错误就是scanf。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scanf(&quot;%d&quot;,val)</span><br></pre></td></tr></table></figure></p>
-<p>若这样写的话，scanf将val解释为一个地址，并试图在这个地址上写一个字。幸运的时候，程序立即中止。但糟糕的情况，val对应的内容为虚拟内存里的合法的读/写区域，这将引起灾难性的，困惑的结果。</p>
-<h2 id="二，读未初始化的内存"><a href="#二，读未初始化的内存" class="headerlink" title="二，读未初始化的内存"></a>二，读未初始化的内存</h2><p>虽然bss内存位置总是被加载器初始化为0，但是对于堆内存不是这样。</p>
-<h2 id="三，引用不存在的变量"><a href="#三，引用不存在的变量" class="headerlink" title="三，引用不存在的变量"></a>三，引用不存在的变量</h2><p>没有经验的C程序员不理解栈规则，有时会引用不再合法的本地变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int *stackref ()&#123;</span><br><span class="line">  int val;</span><br><span class="line"></span><br><span class="line">  return &amp;val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个函数返回一个指针，指向栈里的一个局部变量，然后弹出它的栈帧。尽管p 仍然指向一个合法的内存地址，但是它已经不再指向一个合法的变量了。<br>若使用它，可能会修改另一个函数的栈帧，会带来灾难性后果。</p>
-<h2 id="四，引用空闲堆块中的数据"><a href="#四，引用空闲堆块中的数据" class="headerlink" title="四，引用空闲堆块中的数据"></a>四，引用空闲堆块中的数据</h2><p>有时候，我们先free了一段堆内存，然后又引用它。在引用的时候这段被free的堆可能已经分配给别的堆了，你再去写它，会破坏别的堆的数据。会潜在的带来令人迷惑的现象。</p>
-<h2 id="五，内存泄漏"><a href="#五，内存泄漏" class="headerlink" title="五，内存泄漏"></a>五，内存泄漏</h2><p>内存泄漏是隐形杀手。程序员不小心的忘记了释放已经分配的块。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void leak(int n)&#123;</span><br><span class="line">  int *x = (int*)malloc(n*sizeof(int));</span><br><span class="line"></span><br><span class="line">  return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果经常的调用leak，堆里会充满垃圾。对于像守护进程和服务器这样的程序来说，内存泄漏特别严重，因为根据定义这些进程不会终止。</p>
+        <h1 id="文件共享机制"><a href="#文件共享机制" class="headerlink" title="文件共享机制"></a>文件共享机制</h1><p>文件共享与“复制”有很大区别!!</p>
+<h2 id="一，基于索引结点的共享（硬链接）"><a href="#一，基于索引结点的共享（硬链接）" class="headerlink" title="一，基于索引结点的共享（硬链接）"></a>一，基于索引结点的共享（硬链接）</h2><p>回顾:<strong>索引结点</strong></p>
+<p>用户1的目录：<br>文件名 | 索引结点指针<br>—|—<br>… | ……<br>aaa | p1</p>
+<p>用户2的目录：<br>文件名 | 索引结点指针<br>—|—<br>… | ……<br>bbb | p2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">p1--&gt;索引结点</span><br><span class="line"></span><br><span class="line">p2--&gt;索引结点</span><br><span class="line"></span><br><span class="line">索引结点--&gt;文件</span><br></pre></td></tr></table></figure>
+<p>硬链接即 不同目录的索引结点指针指向同一个索引节点。</p>
+<h2 id="二，基于符号链的共享方式（软连接"><a href="#二，基于符号链的共享方式（软连接" class="headerlink" title="二，基于符号链的共享方式（软连接)"></a>二，基于符号链的共享方式（软连接)</h2><p>类似Windows快捷方式！</p>
+<p>用户3的目录：<br>文件名 | 索引结点指针<br>—|—<br>… | ……<br>ccc | p3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">p3--&gt;索引结点</span><br><span class="line"></span><br><span class="line">索引结点--&gt;文件tmp</span><br></pre></td></tr></table></figure>
+<p><strong>tmp中存放的是软链接文件的地址</strong>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用软链接删除文件，不会删掉磁盘中的文件。</p>
+<p>使用硬链接删除文件，当文件的硬链接计数为0时，那么磁盘中的文件也会被删掉。</p>
 
       
     </div>
@@ -370,9 +371,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C-C/" rel="tag"># C/C++</a>
-          
-            <a href="/tags/Memory-Management/" rel="tag"># Memory Management</a>
+            <a href="/tags/OS/" rel="tag"># OS</a>
           
         </div>
       
@@ -385,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/10/size_t/" rel="next" title="c++ size_t">
-                <i class="fa fa-chevron-left"></i> c++ size_t
+              <a href="/2019/05/18/C字符串与C++字符串/" rel="next" title="C字符串与C++字符串转化">
+                <i class="fa fa-chevron-left"></i> C字符串与C++字符串转化
               </a>
             
           </div>
@@ -395,8 +394,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/11/接入网/" rel="prev" title="接入网技术">
-                接入网技术 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/25/读写套接字过程/" rel="prev" title="读写套接字">
+                读写套接字 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -547,7 +546,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#c语言中常见的内存错误"><span class="nav-number">1.</span> <span class="nav-text">c语言中常见的内存错误</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一，间接引用坏指针"><span class="nav-number">1.1.</span> <span class="nav-text">一，间接引用坏指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二，读未初始化的内存"><span class="nav-number">1.2.</span> <span class="nav-text">二，读未初始化的内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三，引用不存在的变量"><span class="nav-number">1.3.</span> <span class="nav-text">三，引用不存在的变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四，引用空闲堆块中的数据"><span class="nav-number">1.4.</span> <span class="nav-text">四，引用空闲堆块中的数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五，内存泄漏"><span class="nav-number">1.5.</span> <span class="nav-text">五，内存泄漏</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件共享机制"><span class="nav-number">1.</span> <span class="nav-text">文件共享机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一，基于索引结点的共享（硬链接）"><span class="nav-number">1.1.</span> <span class="nav-text">一，基于索引结点的共享（硬链接）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二，基于符号链的共享方式（软连接"><span class="nav-number">1.2.</span> <span class="nav-text">二，基于符号链的共享方式（软连接)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
